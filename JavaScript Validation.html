@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script>
+        function validateForm(e) {
+            e.preventDefault()
+            let x = document.forms["myForm"]["fname"].value;
+            let processData = x.replaceAll("<", "|").replaceAll(">", "#");
+            console.log(processData);
+            document.getElementById('copyText').value = processData;
+            if (x == "") {
+                alert("Name must be filled out");
+                return false;
+            }
+        }
+        function CopyText() {
+            let copyValue = document.getElementById('copyText').value
+            navigator.clipboard.writeText(copyValue);
+            setButtonText('Copied');
+            setTimeout(() => setButtonText('Copy'), [1000])
+        }
+    </script>
+    <style>
+        body {
+            width: 1080px;
+            margin: 0 auto;
+        }
+
+        .main-div {
+            display: flex;
+        }
+
+        .text-areadiv {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 30px;
+            width: 48%;
+            padding: 2%;
+        }
+
+        textarea {
+            background-color: #F8F8F8;
+            border-color: rgba(0, 0, 0, 0.144);
+            border-radius: 5px;
+            outline: none;
+            padding: 10px;
+            font-size: 16px;
+            min-width: 100%;
+            max-width: 100%;
+        }
+
+        .form-button {
+            width: fit-content;
+            padding: 12px 40px;
+            border-radius: 25px;
+            border: none;
+            margin: 0 auto;
+            color: #000000;
+            font-size: 16px;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>JavaScript Validation</h2>
+
+    <div class="main-div">
+        <form name="myForm" onsubmit="validateForm(event)" class="text-areadiv">
+            <textarea id="w3review" type="text" name="fname" rows="6" cols="100"></textarea>
+            <br>
+            <input type="submit" class="form-button" value="Submit">
+        </form>
+        <div class="text-areadiv">
+            <textarea id="copyText" name="" id="" cols="100" rows="6" disabled></textarea><br>
+            <button onclick="CopyText()" class="form-button">Copy to the clipboard</button>
+        </div>
+    </div>
+
+</body>
+
+</html>
